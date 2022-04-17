@@ -6,6 +6,7 @@ class PersonGrabber(threading.Thread):
         threading.Thread.__init__(self)
         self.started = False
         self.soundManager = soundManager
+        self.dataPool = []
     def run(self):
         while True:
             if self.started:

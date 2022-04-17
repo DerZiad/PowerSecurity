@@ -44,7 +44,7 @@ while True:
 
         personNumber = checkIfFaceProcess(classNames)
         if personNumber > 1:
-            soundPlayer.addSound(Sound("S'il vous plait, vous avez 1 minutes pour reculer ou l'alarme va démarrer","fr",False,max))
+            soundPlayer.addSound(Sound("Please you should go back before 1 minute","en",False,max))
             startAlarm = True
             processStarted = False
             personGrabber.close()

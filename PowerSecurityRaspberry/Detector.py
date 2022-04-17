@@ -23,8 +23,8 @@ class FaceReconizer:
             stroke = 2
             width = x + w
             heigth = y + h
-            savePath = "pictures/" + str(self.i) + ".png"
-            cv2.imwrite(savePath, roi_color)
+            #savePath = "pictures/" + str(self.i) + ".png"
+            #cv2.imwrite(savePath, roi_color)
             cv2.rectangle(frame, (x, y), (width, heigth), color, stroke)
             self.i += 1
         return frame
@@ -71,21 +71,26 @@ class PersonDetector:
         classNames = []
         if len(bboxIndx) != 0:
             for i in bboxIndx:
-                bbox[i] = tuple(bbox[i])
-                classConfidence = round(100 * classScores[i])
                 classIndex = classIndexes[i]
 
-                classNames.append(self.classesList[classIndex])
-                classLabelText = self.classesList[classIndex]
-                classColor = self.colorList[classIndex]
+                name = self.classesList[classIndex]
+                if name == "person":
+                    classNames.append(self.classesList[classIndex])
 
-                displayText = '{} : {}%'.format(classLabelText, classConfidence)
+                    bbox[i] = tuple(bbox[i])
+                    classConfidence = round(100 * classScores[i])
+                    classIndex = classIndexes[i]
 
-                ymin, xmin, ymax, xmax = bbox[i]
+                    classLabelText = self.classesList[classIndex]
+                    classColor = self.colorList[classIndex]
 
-                xmin, xmax, ymin, ymax = (xmin * imW, xmax * imW, ymin * imH, ymax * imH)
-                xmin, xmax, ymin, ymax = int(xmin), int(xmax), int(ymin), int(ymax)
+                    displayText = '{} : {}%'.format(classLabelText, classConfidence)
 
-                cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=classColor, thickness=1)
-                cv2.putText(image, displayText, (xmin, ymin - 10), cv2.FONT_HERSHEY_PLAIN, 1, classColor, 2)
+                    ymin, xmin, ymax, xmax = bbox[i]
+
+                    xmin, xmax, ymin, ymax = (xmin * imW, xmax * imW, ymin * imH, ymax * imH)
+                    xmin, xmax, ymin, ymax = int(xmin), int(xmax), int(ymin), int(ymax)
+
+                    cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=classColor, thickness=1)
+                    cv2.putText(image, displayText, (xmin, ymin - 10), cv2.FONT_HERSHEY_PLAIN, 1, classColor, 2)
         return image, classNames

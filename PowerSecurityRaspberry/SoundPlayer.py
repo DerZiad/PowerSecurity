@@ -20,14 +20,16 @@ class Sound:
 class SoundManager(threading.Thread):
     def generate(self):
         name = ""
-        for i in range(0,6):
-            char = random.randint(65,122)
+        for i in range(0, 6):
+            char = random.randint(97, 122)
             name += chr(char)
         return name
+
     def __init__(self):
         threading.Thread.__init__(self)
         self.pool = []
         self.isPlaying = False
+
     def run(self):
         while True:
             if not self.isPlaying:
@@ -35,13 +37,14 @@ class SoundManager(threading.Thread):
                     soundTemp = self.pool.pop()
                     self.play(soundTemp.text, soundTemp.lang, soundTemp.slow)
                 except IndexError:
-                   pass
-    def addSound(self,sound:Sound):
-        if sound.priority == max:
-            self.pool.clear()
+                    pass
+
+    def addSound(self, sound: Sound):
+        self.pool.clear()
         self.pool.append(sound)
 
     def play(self, text="Hello world", lang="en", slow=True):
+        self.isPlaying = True
         name = self.generate()
         while os.path.exists(name):
             name = self.generate()
@@ -49,23 +52,25 @@ class SoundManager(threading.Thread):
         output.save("{}.mp3".format(name))
         playsound("{}.mp3".format(name))
         os.remove("{}.mp3".format(name))
-    '''def recognize(self):
-        recognizer = speech_recognition.Recognizer()
+        self.isPlaying = False
 
-        while True:
-            try:
-                with speech_recognition.Microphone() as mic:
 
-                    recognizer.adjust_for_ambient_noise(mic, duration=0.2)
-                    audio = recognizer.listen(mic)
+def recognize():
+    recognizer = speech_recognition.Recognizer()
+    while True:
+        try:
+            with speech_recognition.Microphone(device_index=2) as mic:
+                print(dir(mic))
+                print(mic.list_microphone_names())
+                print(mic.device_index)
+                recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+                audio = recognizer.listen(mic)
 
-                    text = recognizer.recognize_google(audio)
-                    text = text.lower()
-
-                    print(f"Recogniezd {text}")
-            except speech_recognition.UnknownValueError:
-                recognizer = speech_recognition.Recognizer()
-                print("Error")
-                continue
-
-    '''
+                text = recognizer.recognize_google(audio)
+                text = text.lower()
+                print(f"Recogniezd {text}")
+                return text
+        except speech_recognition.UnknownValueError:
+            recognizer = speech_recognition.Recognizer()
+            print("Error")
+            continue

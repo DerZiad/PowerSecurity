@@ -1,5 +1,6 @@
 from Detector import *
 from SoundPlayer import *
+from PersonDataGrabber import *
 import cv2
 import datetime
 
@@ -9,7 +10,7 @@ def get_part_of_day(h):
     elif 12 <= h <= 17:
         return "afternoon"
     elif 18 <= h <= 22:
-        return  "evening"
+        return "evening"
     else:
         return "night"
 def checkIfFaceProcess(classNames):
@@ -26,30 +27,33 @@ processStarted = False
 
 personDetector = PersonDetector('models/PersonDetector/mobilenet/saved_model', 'models/PersonDetector/mobilenet/coco.names')
 faceDetector = FaceReconizer("models/FaceDetecter/haarcascade_frontalface_alt2.xml")
-print("Threading doesn t work")
+
 soundPlayer = SoundManager()
 soundPlayer.start()
-print("passed")
+
+personGrabber = PersonGrabber(soundPlayer)
+personGrabber.start()
+
 capture = cv2.VideoCapture(0)
 while True:
     now = datetime.datetime.now()
     isValable, frame = capture.read()
     if isValable:
         frame1 = frame.copy()
-        frame = personDetector.rescaleFrame(frame, scale=1)  # redimensionner l'image
         frame, classNames = personDetector.createBoundingBox(frame)
-        personNumber = checkIfFaceProcess(classNames)
 
+        personNumber = checkIfFaceProcess(classNames)
         if personNumber > 1:
-            soundPlayer.addSound(Sound("S'il vous plait, vous avez 1 minutes pour se décaler ou l'alarme va démarrer","fr",False,max))
+            soundPlayer.addSound(Sound("S'il vous plait, vous avez 1 minutes pour reculer ou l'alarme va démarrer","fr",False,max))
             startAlarm = True
             processStarted = False
+            personGrabber.close()
         else:
             if personNumber == 1 and (not processStarted):
-                soundPlayer.addSound(Sound("Demarrage de la reconnaissance faciale","fr",False,min))
+                soundPlayer.addSound(Sound("Starting face recognition","en",False,min))
                 processStarted = True
                 startAlarm = False
-
+                personGrabber.started = True
         if processStarted:
             frame = faceDetector.createBoundingBox(frame,frame1)
         if get_part_of_day(now.hour) == "afternoon":

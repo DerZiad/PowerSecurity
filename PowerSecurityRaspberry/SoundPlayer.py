@@ -2,27 +2,54 @@ import speech_recognition
 import os
 from playsound import playsound
 from gtts import gTTS
+import random
 import threading
 
+max = 1
+min = 0
 
-class SoundManager:
+
+class Sound:
+    def __init__(self, text, lang, slow, priority):
+        self.text = text
+        self.lang = lang
+        self.slow = slow
+        self.priority = priority
+
+
+class SoundManager(threading.Thread):
+    def generate(self):
+        name = ""
+        for i in range(0,6):
+            char = random.randint(65,122)
+            name += chr(char)
+        return name
     def __init__(self):
-        self.file = []
+        threading.Thread.__init__(self)
+        self.pool = []
+        self.isPlaying = False
+    def run(self):
+        while True:
+            if not self.isPlaying:
+                try:
+                    soundTemp = self.pool.pop()
+                    self.play(soundTemp.text, soundTemp.lang, soundTemp.slow)
+                except IndexError:
+                   pass
+    def addSound(self,sound:Sound):
+        if sound.priority == max:
+            self.pool.clear()
+        self.pool.append(sound)
 
-    def task(self,text,lang, slow):
-        lock = threading.Lock()
-        lock.acquire()
-        if os.path.exists("output.mp3"):
-            os.remove("output.mp3")
+    def play(self, text="Hello world", lang="en", slow=True):
+        name = self.generate()
+        while os.path.exists(name):
+            name = self.generate()
         output = gTTS(text=text, lang=lang, slow=slow)
-        output.save("output.mp3")
-        playsound("output.mp3")
-        os.remove("output.mp3")
-        lock.release()
-    def speech(self,text="Hello world", lang="en", slow=True):
-        t1 = threading.Thread(target=self.task,args=(text,lang,slow))
-        t1.start()
-    def recognize(self):
+        output.save("{}.mp3".format(name))
+        playsound("{}.mp3".format(name))
+        os.remove("{}.mp3".format(name))
+    '''def recognize(self):
         recognizer = speech_recognition.Recognizer()
 
         while True:
@@ -40,3 +67,5 @@ class SoundManager:
                 recognizer = speech_recognition.Recognizer()
                 print("Error")
                 continue
+
+    '''

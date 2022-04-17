@@ -1,0 +1,15 @@
+from SoundPlayer import *
+
+player = Sop()
+player.start()
+player.addSound(Sound("Hello ziad how are you","en",True,min))
+player.addSound(Sound("Hello soukaina how are you","en",True,min))
+player.addSound(Sound("Hello ziad how are you","en",True,min))
+player.addSound(Sound("Hello soukaina how are you","en",True,min))
+player.addSound(Sound("Hello ziad how are you","en",True,min))
+player.addSound(Sound("Hello soukaina how are you","en",True,min))
+player.addSound(Sound("Hello ziad how are you","en",True,min))
+player.addSound(Sound("Hello soukaina how are you","en",True,min))
+player.addSound(Sound("Hello ziad how are you","en",True,min))
+player.addSound(Sound("Hello soukaina how are you","en",True,min))
+player.addSound(Sound("wtfffff work","en",True,max))

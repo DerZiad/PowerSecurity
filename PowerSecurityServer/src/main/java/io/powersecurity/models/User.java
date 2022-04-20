@@ -36,6 +36,7 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails, Serializable {
 
 	@Id
+	@Length(min=6,max=8)
 	private String username;
 	private String password;
 

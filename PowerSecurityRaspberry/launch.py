@@ -1,15 +1,8 @@
-import threading
+from SoundPlayer import *
 
-
-def f1():
-    while True:
-        print("f1")
-
-def f2():
-    while True:
-        print("f2")
-t1 = threading.Thread(target=f1)
-t1.start()
-
-t2 = threading.Thread(target=f2)
-t2.start()
+sound = Sound("hello","fr",False,0)
+soundManager = SoundManager()
+soundManager.start()
+soundManager.addSound(sound)
+while not sound.played:
+    print(sound.played)

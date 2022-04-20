@@ -10,9 +10,12 @@ class PersonGrabber(threading.Thread):
     def run(self):
         while True:
             if self.started:
-                self.soundManager.addSound(Sound("Can you say your name : my name is Ziad Bougrine:","en",True,True))
-                while self.soundManager.isPlaying:
-                    pass
+
+                sound = Sound("Can you say your name : my name is Ziad Bougrine:","en",True,max)
+                self.soundManager.addSound(sound)
+
+                while not sound.played:
+                    print(sound.played)
                 text = recognize()
                 print(text)
     def close(self):

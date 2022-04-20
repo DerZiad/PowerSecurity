@@ -15,6 +15,7 @@ class Sound:
         self.lang = lang
         self.slow = slow
         self.priority = priority
+        self.played = False
 
 
 class SoundManager(threading.Thread):
@@ -36,6 +37,7 @@ class SoundManager(threading.Thread):
                 try:
                     soundTemp = self.pool.pop()
                     self.play(soundTemp.text, soundTemp.lang, soundTemp.slow)
+                    soundTemp.played=True
                 except IndexError:
                     pass
 

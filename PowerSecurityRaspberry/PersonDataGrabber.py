@@ -13,7 +13,8 @@ class PersonGrabber(threading.Thread):
 
                 sound = Sound("Can you say your name : my name is Ziad Bougrine:","en",True,max)
                 self.soundManager.addSound(sound)
-
+                while not sound.played:
+                    print(sound.played)
                 text = recognize()
                 print(text)
     def close(self):

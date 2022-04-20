@@ -62,6 +62,7 @@ def recognize():
     while True:
         try:
             with speech_recognition.Microphone(device_index=2) as mic:
+
                 print(dir(mic))
                 print(mic.list_microphone_names())
                 print(mic.device_index)

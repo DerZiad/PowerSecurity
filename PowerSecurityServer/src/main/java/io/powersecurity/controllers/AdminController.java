@@ -11,6 +11,6 @@ public class AdminController {
 
 	@GetMapping
 	public ModelAndView getPageAdmin() {
-		return new ModelAndView("admin");
+		return new ModelAndView("list");
 	}
 }

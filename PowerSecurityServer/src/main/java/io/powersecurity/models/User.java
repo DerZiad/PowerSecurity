@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails, Serializable {
 
 	@Id
-	@Length(min=6,max=8)
+	@Length(min = 4, max = 8)
 	private String username;
 	private String password;
 
@@ -53,5 +53,12 @@ public class User implements UserDetails, Serializable {
 		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		return authorities;
 	}
-	
+
+	public User(@Length(min = 6, max = 8) String username, String password, String roles) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
+	}
+
 }

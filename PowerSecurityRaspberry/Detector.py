@@ -14,7 +14,7 @@ class FaceReconizer:
         tf.keras.backend.clear_session()
         self.model = cv2.CascadeClassifier(self.modelPath)
 
-    def createBoundingBox(self, frame,frameFresh):
+    def createBoundingBox(self, frame,frameFresh,directory):
         gray = cv2.cvtColor(frameFresh, cv2.COLOR_RGB2GRAY)
         faces = self.model.detectMultiScale(gray, scaleFactor=1.5, minNeighbors=5)
         for (x, y, w, h) in faces:
@@ -23,8 +23,8 @@ class FaceReconizer:
             stroke = 2
             width = x + w
             heigth = y + h
-            #savePath = "pictures/" + str(self.i) + ".png"
-            #cv2.imwrite(savePath, roi_color)
+            savePath = directory + "/" + str(self.i) + ".png"
+            cv2.imwrite(savePath, roi_color)
             cv2.rectangle(frame, (x, y), (width, heigth), color, stroke)
             self.i += 1
         return frame

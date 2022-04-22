@@ -1,6 +1,7 @@
 package io.powersecurity.models;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,8 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sun.jdi.InvalidTypeException;
@@ -20,10 +23,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+
+@NamedQuery(name = "Picture.PicsList", query = "SELECT pi.picture FROM Picture pi,Person p where p.id=pi.id and p.id=?1 and pi.id=?1 ")
 @Table(name="pictures")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+
 public class Picture {
 
 	@Id
@@ -35,6 +41,7 @@ public class Picture {
 	
 	private String fileName;
 	
+	
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
 	private Person person;
 	
@@ -43,4 +50,5 @@ public class Picture {
 		this.fileName = this.picture.hashCode() + ".jpg";
 
 	}
+	
 }

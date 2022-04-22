@@ -33,7 +33,9 @@
 								<th class="column100 column1" data-column="column1"></th>
 								<th class="column100 column2" data-column="column2">First Name</th>
 								<th class="column100 column3" data-column="column3">Last Name</th>
+								<form>
 								<th class="column100 column4" data-column="column4">View pictures</th>
+								</form>
 								
 							</tr>
 							

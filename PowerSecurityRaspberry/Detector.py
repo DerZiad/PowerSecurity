@@ -1,7 +1,8 @@
 import numpy as np
 import tensorflow as tf
 import cv2
-
+import warnings
+warnings.filterwarnings("ignore")
 
 class FaceReconizer:
     def __init__(self, modelPath):

@@ -23,7 +23,7 @@ import io.powersecurity.repository.*;
 @SpringBootApplication
 public class PowerSecurityServerApplication implements CommandLineRunner {
 
-	public EntityManager em;
+	Person person = new Person();
 
 	@Autowired
 	private UserRepository userRepository;
@@ -43,6 +43,8 @@ public class PowerSecurityServerApplication implements CommandLineRunner {
 			userRepository.save(user);
 
 		}
+		List <Picture>listPics = person.getPictures();
+		System.out.println("list of pics is"+listPics);
 
 	}
 

@@ -35,4 +35,10 @@ public class Person {
 	private List<Picture> pictures = new ArrayList<>();
 	
 	
+	
+	
+	
+	
+	
+	
 }

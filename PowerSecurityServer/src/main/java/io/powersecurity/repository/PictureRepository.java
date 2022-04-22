@@ -14,8 +14,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 
 @Repository
-public interface PictureRepository extends JpaRepository<Picture,Byte>{
+public interface PictureRepository extends JpaRepository<Picture,Integer>{
 	
 	
-	public List<Picture> PicsList();
+
 }

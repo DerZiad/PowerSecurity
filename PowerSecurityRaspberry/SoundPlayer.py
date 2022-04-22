@@ -58,10 +58,11 @@ class SoundManager(threading.Thread):
 
 
 def recognize():
+    print("Here")
     recognizer = speech_recognition.Recognizer()
     while True:
         try:
-            with speech_recognition.Microphone(device_index=2) as mic:
+            with speech_recognition.Microphone(device_index=0) as mic:
                 recognizer.adjust_for_ambient_noise(mic, duration=0.2)
                 audio = recognizer.listen(mic)
                 text = recognizer.recognize_google(audio)

@@ -23,13 +23,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-
-@NamedQuery(name = "Picture.PicsList", query = "SELECT pi.picture FROM Picture pi,Person p where p.id=pi.id and p.id=?1 and pi.id=?1 ")
 @Table(name="pictures")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-
 public class Picture {
 
 	@Id

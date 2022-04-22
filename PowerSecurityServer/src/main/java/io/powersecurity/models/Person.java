@@ -32,7 +32,7 @@ public class Person {
 	private String lastName;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "person")
-	private List<Picture> picture = new ArrayList<>();
+	private List<Picture> pictures = new ArrayList<>();
 	
 	
 }

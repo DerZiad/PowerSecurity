@@ -22,7 +22,7 @@ import io.powersecurity.models.*;
 import io.powersecurity.repository.*;
 import util.HibernateUtil;
 
-@EntityScan("io.powersecurity.models")
+@EntityScan("io.powersecurity.models.Picture")
 @SpringBootApplication
 public class PowerSecurityServerApplication implements CommandLineRunner{
 	private static Session session = HibernateUtil.getSessionFactory().openSession();
@@ -48,11 +48,7 @@ public class PowerSecurityServerApplication implements CommandLineRunner{
 
 		}
 		
-		Query q = session.createNamedQuery("PicsList");
-		q.setParameter(1, "ASMAE");
-		List a = q.getResultList();
-		
-		System.out.println("THE LIST: "+a);
+		//Query q = session.createNamedQuery("PicsList");
 		
 
 		

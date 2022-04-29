@@ -37,7 +37,7 @@ class PersonGrabber(threading.Thread):
                     while not sound.played:
                         pass
                     time.sleep(1000)
-                    self.started = False
+                    self.close()
 
     def formatText(self, text):
         reg = "my name is [A-Za-z]* [A-Za-z]*"

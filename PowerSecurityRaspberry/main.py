@@ -46,6 +46,7 @@ while True:
                     personGrabber.started = True
                 else:
                     if personGrabber.name != "":
+                        print("Detecting face")
                         frame = faceDetector.createBoundingBox(frame, frame1,personGrabber.name)
                     else:
                         faceDetector.i = 0

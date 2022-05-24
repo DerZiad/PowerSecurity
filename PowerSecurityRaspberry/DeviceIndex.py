@@ -1,0 +1,3 @@
+from SoundPlayer import *
+
+recognize()

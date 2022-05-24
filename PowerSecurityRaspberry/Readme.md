@@ -35,7 +35,4 @@ conda create -n "PowerSecurity" python=3.10 # We re creating our Virtual environ
 ```
 # Contributors
  - Ziad Bougrine (https://github.com/DerZiad)
-- Asmae Mahjoubi (https://github.com/asmae1m)
- - Ayman Hemmouda (https://github.com/telos-matter)
- - Mohamed Hafidi (https://github.com/mohamedhafidi33)
 

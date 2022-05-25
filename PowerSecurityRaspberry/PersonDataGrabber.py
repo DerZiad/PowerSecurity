@@ -15,6 +15,7 @@ class PersonGrabber(threading.Thread):
 
     def __init__(self, soundManager):
         threading.Thread.__init__(self)
+        self.recognizer = PowerRecognizer(soundManager)
         self.started = False
         self.soundManager = soundManager
         self.name = ""
@@ -29,8 +30,11 @@ class PersonGrabber(threading.Thread):
                 self.soundManager.addSound(sound)
                 while not sound.played:
                     pass
-                text = recognize()
+                text = self.recognizer.recognize()
                 lastName, firstName = self.formatText(text)
+                #sound = Sound("Is your name is {} {}, did i see it good ? Please say yes or no".format(firstName,lastName), "en", True, max)
+                #while not sound.played:
+                #    pass
                 if firstName != "" and lastName != "":
                     sound = Sound("Welcome " + firstName + ", Enjoy your day", "en", True, max)
                     self.soundManager.addSound(sound)

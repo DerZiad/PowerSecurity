@@ -56,18 +56,28 @@ class SoundManager(threading.Thread):
         os.remove("{}.mp3".format(name))
         self.isPlaying = False
 
+class PowerRecognizer:
+    def __init__(self,soundManager:SoundManager):
+        self.recognizer = speech_recognition.Recognizer()
+        self.soundManager = soundManager
+        #Configure
+        print("Please select one microphone")
+        for i,name in enumerate(speech_recognition.Microphone.list_microphone_names()):
+            print("{}) - {}".format(i + 1,name))
+        self.microphoneIndex = int(input("Enter microphone index :"))
+    def recognize(self):
+        try:
+            with speech_recognition.Microphone(device_index=(self.microphoneIndex-1)) as mic:
+                self.recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+                print("Listening")
+                audio = self.recognizer.listen(mic)
+                text = self.recognizer.recognize_google(audio)
+                print(text)
+                text = text.lower()
 
-def recognize():
-    recognizer = speech_recognition.Recognizer()
-    try:
-        print(dir(recognizer))
-        print(speech_recognition.Microphone.list_microphone_names())
-        with speech_recognition.Microphone(device_index=2) as mic:
-            recognizer.adjust_for_ambient_noise(mic, duration=0.2)
-            audio = recognizer.listen(mic)
-            text = recognizer.recognize_google(audio)
-            text = text.lower()
-            print(text)
-            return text
-    except speech_recognition.UnknownValueError:
-        recognizer = speech_recognition.Recognizer()
+                return text
+        except speech_recognition.UnknownValueError:
+            sound = Sound("Can you repeat i cannot hear you", "en", False, max)
+            self.soundManager.addSound(sound)
+            while not sound.played:
+                pass

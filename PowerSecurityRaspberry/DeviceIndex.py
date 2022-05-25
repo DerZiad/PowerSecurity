@@ -1,3 +1,6 @@
+import SoundPlayer
 from SoundPlayer import *
 
-recognize()
+soundPlayer = SoundPlayer.SoundManager()
+recognizerr = PowerRecognizer(soundPlayer)
+recognizerr.recognize()

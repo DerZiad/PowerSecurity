@@ -33,7 +33,7 @@ public class SessionFilter implements Filter {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		boolean testRessource = false;
-		List<String> list = Arrays.asList("/vendor","/css","/fonts","/images","/js");
+		List<String> list = Arrays.asList("/assets");
 
 		for (String item : list) {
 			if (path.startsWith(item)) {

@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -25,8 +27,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User implements UserDetails, Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@Length(min = 4, max = 8)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
 	private String username;
 	private String password;
 
@@ -44,7 +50,7 @@ public class User implements UserDetails, Serializable {
 		return authorities;
 	}
 
-	public User(@Length(min = 6, max = 8) String username, String password, String roles) {
+	public User(String username, String password, String roles) {
 		super();
 		this.username = username;
 		this.password = password;

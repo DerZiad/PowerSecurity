@@ -9,8 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/login")
 public class AuthenticationServlet {
 	
+	private final static String LOGIN_JSP = "login";
+	
+	
 	@GetMapping
 	public ModelAndView getPage() {
-		return new ModelAndView("index");
+		return new ModelAndView(LOGIN_JSP);
 	}
 }

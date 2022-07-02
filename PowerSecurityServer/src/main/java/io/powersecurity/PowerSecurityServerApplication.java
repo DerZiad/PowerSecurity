@@ -23,7 +23,7 @@ import io.powersecurity.repository.*;
 @SpringBootApplication
 public class PowerSecurityServerApplication implements CommandLineRunner {
 
-	Person person = new Person();
+	Entry person = new Entry();
 
 	@Autowired
 	private UserRepository userRepository;

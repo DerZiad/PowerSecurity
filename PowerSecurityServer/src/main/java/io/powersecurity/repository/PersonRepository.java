@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import io.powersecurity.models.Person;
 
 @Repository
-public interface PersonRepository extends JpaRepository<Person, Integer>{
+public interface PersonRepository extends JpaRepository<Person, Long>{
 
 }

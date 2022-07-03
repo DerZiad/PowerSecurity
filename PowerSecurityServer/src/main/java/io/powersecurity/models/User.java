@@ -11,11 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import io.powersecurity.models.enums.ConnexionRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,7 +36,7 @@ public class User implements UserDetails, Serializable {
 	private String username;
 	private String password;
 
-	private String roles = "";
+	private String role = "";
 
 	private boolean accountNonExpired = true;
 	private boolean accountNonLocked = true;
@@ -46,15 +46,27 @@ public class User implements UserDetails, Serializable {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		authorities.add(new SimpleGrantedAuthority("ROLE_"  + role));
 		return authorities;
 	}
 
-	public User(String username, String password, String roles) {
+	public User(String username, String password, String role) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.roles = roles;
+		this.role = role;
+	}
+	
+	public void makeAdmin() {
+		role = ConnexionRole.ADMIN.name();
+	}
+	
+	public void makeSecretary() {
+		role = ConnexionRole.SECRETARY.name();
+	}
+	
+	public void makeParent() {
+		role = ConnexionRole.PARENT.name();
 	}
 
 }

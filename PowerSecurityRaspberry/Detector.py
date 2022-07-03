@@ -68,7 +68,7 @@ class PersonDetector:
         classScores = detections['detection_scores'][0].numpy()
         imH, imW, imC = image.shape
         bboxIndx = tf.image.non_max_suppression(bbox, classScores, max_output_size=50, iou_threshold=0.5,
-                                                score_threshold=0.5)
+                                                score_threshold=0.7)
         classNames = []
         if len(bboxIndx) != 0:
             for i in bboxIndx:

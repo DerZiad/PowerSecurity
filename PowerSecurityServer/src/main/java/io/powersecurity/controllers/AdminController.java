@@ -1,15 +1,11 @@
 package io.powersecurity.controllers;
 
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 
-import io.powersecurity.exceptions.NoDataFoundException;
 import io.powersecurity.models.Entry;
 import io.powersecurity.services.EntriesService;
 
@@ -26,6 +22,7 @@ public class AdminController {
 	
 	@GetMapping("/searchEntry")
 	public ModelAndView searchEntry(@RequestPayload Entry entry) {
+		
 		return null;
 	}
 	

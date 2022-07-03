@@ -39,13 +39,13 @@ public class PowerSecurityServerApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		List<User> users = userRepository.findAll();
 		if (users.size() == 0) {
-			User user = new User("admin", passwordEncoder.encode("admin123"), "ADMIN");
+			User user = new User();
+			user.setUsername("admin");
+			user.setPassword(passwordEncoder.encode("admin123"));
+			user.makeAdmin();
 			userRepository.save(user);
 
 		}
-		List <Picture>listPics = person.getPictures();
-		System.out.println("list of pics is"+listPics);
-
 	}
 
 }

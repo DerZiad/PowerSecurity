@@ -9,11 +9,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/login")
 public class AuthenticationServlet {
 	
+	private final static String CONTROLLER_NAME = "Authentication";
+	
 	private final static String LOGIN_JSP = "login";
 	
 	
 	@GetMapping
 	public ModelAndView getPage() {
-		return new ModelAndView(LOGIN_JSP);
+		ModelAndView model = new ModelAndView(LOGIN_JSP);
+		model.addObject("service",CONTROLLER_NAME);
+		return model;
 	}
 }
